@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+<title>Salas - Fórum</title>
+
+
+<p class="box_post">Objetivo do Fórum: O fórum será uma plataforma de comunicação entre o instituto e seus alunos e egressos, com o intuito de promover a troca de informações, debates e discussões.</p>
+<h2>Salas</h2>
+
+{% if user.is_authenticated %}
+<!-- Link para criar sala, visível apenas para administradores -->
+{% if request.user|can_create %}
+<a href="{% url 'forum:create_sala' %}">Criar Sala</a>
+{% endif %}
+
+{% if salas %}
+<ul>
+    {% for sala in salas %}
+    <div class="box_post">
+        <li>
+            <a href="{% url 'forum:categoria_list' sala_id=sala.id %}">{{ sala.name }}</a>
+
+            <!-- Links de edição e exclusão visíveis apenas para administradores -->
+            {% if request.user|can_create %}
+            <a href="{% url 'forum:edit_sala' sala.id %}"><button class="btn-mini">Editar</button></a>
+            <a href="{% url 'forum:delete_sala' sala.id %}">
+                <button onclick="return confirm('Tem certeza?');" class="btn-mini">Excluir</button>
+            </a>
+            {% endif %}
+        </li>
+    </div>
+    {% endfor %}
+</ul>
+{% else %}
+{% if request.user|can_create %}
+<a href="{% url 'forum:create_sala' %}">Criar Sala</a>
+{% endif %}
+<p>Nenhuma sala cadastrada. ^_^</p>
+{% endif %}
+{% else %}
+<p><a href="{% url 'contas:login' %}"">LOGIN necessário</a></p>
+{% endif %}
+
+{% endblock %}
