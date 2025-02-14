@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-qv(d0_ak8^@l&4^itlju-buhrd$*i^&y_y83n=2km&z3)o2#!$
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['curvilinea-egressos.onrender.com', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
