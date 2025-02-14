@@ -11,5 +11,10 @@ urlpatterns = [
     path('', include('painel.urls')),
     path('', include('informe.urls')),
 ]
+# Adicione isso para servir arquivos estáticos em ambiente de desenvolvimento
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Isso já está incluindo as mídias, mas faltava estáticos
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
